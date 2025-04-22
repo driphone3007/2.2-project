@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Your Property | NH Real Estate</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #217bef;
+            --primary-orange: #ff5722;
+            --dark-blue: #1a5cb8;
+            --light-blue: #e6f0fd;
+            --dark-orange: #e64a19;
+            --light-orange: #ffecb3;
+            --dark-gray: #333;
+            --medium-gray: #666;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: white;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            color: var(--primary-blue);
+            font-size: 24px;
+        }
+        
+        .logo span {
+            color: var(--primary-orange);
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-blue);
+        }
+        
+        nav ul li a.active {
+            color: var(--primary-orange);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-orange);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-blue {
+            background-color: var(--primary-blue);
+        }
+        
+        .btn-blue:hover {
+            background-color: var(--dark-blue);
+        }
+        
+        /* Property Showcase */
+        .property-showcase {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .property-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .property-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .property-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .property-info {
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .property-info h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .property-info .price {
+            color: var(--primary-orange);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .property-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .property-features span {
+            display: flex;
+            align-items: center;
+            color: var(--medium-gray);
+        }
+        
+        .property-features i {
+            margin-right: 5px;
+            color: var(--primary-blue);
+        }
+        
+        /* Virtual Tour */
+        .virtual-tour {
+            background-color: var(--light-blue);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .tour-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .tour-iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        
+        /* Floor Plans */
+        .floor-plans {
+            padding: 80px 0;
+        }
+        
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .plan-card {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .plan-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        /* Neighborhood Info */
+        .neighborhood {
+            background-color: var(--light-blue);
+            padding: 80px 0;
+        }
+        
+        .neighborhood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .neighborhood-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .neighborhood-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .neighborhood-card h3 i {
+            margin-right: 10px;
+            color: var(--primary-orange);
+        }
+        
+        /* Contact Form */
+        .contact-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-info h3 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-method i {
+            width: 50px;
+            height: 50px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .contact-form {
+            background-color: var(--light-blue);
+            padding: 30px;
+            border-radius: 8px;
+        }
+        
+        .contact-form h3 {
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--light-blue);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card .quote {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--medium-gray);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-orange);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: var(--primary-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="./images/pngegg (1).png" alt="NH Real Estate Logo">
+                <h1>NH <span>Real Estate</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="buy.html">Buy</a></li>
+                    <li><a href="rent.html">Rent</a></li>
+                    <li><a href="sell.html" class="active">Sell</a></li>
+                    <li><a href="agents.html">Agents</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Sell Your Property With Confidence</h2>
+            <p>Get the best price for your home with our expert marketing strategies and extensive buyer network.</p>
+            <a href="#contact" class="btn">Get a Free Valuation</a>
+        </div>
+    </section>
+
+    <!-- Property Showcase -->
+    <section class="property-showcase">
+        <div class="container">
+            <div class="section-title">
+                <h2>Recently Sold Properties</h2>
+                <p>See what similar homes in your area have sold for with our comprehensive market analysis.</p>
+            </div>
+            <div class="property-gallery">
+                <!-- Property 1 -->
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Modern Family Home">
+                    <div class="property-info">
+                        <h3>Modern Family Home</h3>
+                        <div class="price">$575,000</div>
+                        <div class="property-features">
+                            <span><i class="fas fa-bed"></i> 4 Beds</span>
+                            <span><i class="fas fa-bath"></i> 3 Baths</span>
+                            <span><i class="fas fa-ruler-combined"></i> 2,450 sqft</span>
+                        </div>
+                        <p>Beautiful modern home with open floor plan, gourmet kitchen, and spacious backyard.</p>
+                    </div>
+                </div>
+                
+                <!-- Property 2 -->
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Luxury Condo">
+                    <div class="property-info">
+                        <h3>Luxury Downtown Condo</h3>
+                        <div class="price">$825,000</div>
+                        <div class="property-features">
+                            <span><i class="fas fa-bed"></i> 3 Beds</span>
+                            <span><i class="fas fa-bath"></i> 2.5 Baths</span>
+                            <span><i class="fas fa-ruler-combined"></i> 1,800 sqft</span>
+                        </div>
+                        <p>Penthouse condo with panoramic city views, high-end finishes, and premium amenities.</p>
+                    </div>
+                </div>
+                
+                <!-- Property 3 -->
+                <div class="property-card">
+                    <img src="https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Charming Cottage">
+                    <div class="property-info">
+                        <h3>Charming Cottage</h3>
+                        <div class="price">$325,000</div>
+                        <div class="property-features">
+                            <span><i class="fas fa-bed"></i> 2 Beds</span>
+                            <span><i class="fas fa-bath"></i> 1 Bath</span>
+                            <span><i class="fas fa-ruler-combined"></i> 1,200 sqft</span>
+                        </div>
+                        <p>Adorable cottage with character, updated kitchen, and beautiful garden in sought-after neighborhood.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Tour -->
+    <section class="virtual-tour">
+        <div class="container tour-container">
+            <div class="section-title">
+                <h2>Virtual Tour Experience</h2>
+                <p>We provide professional virtual tours that allow buyers to explore your property from anywhere in the world.</p>
+            </div>
+            <iframe 
+  class="tour-iframe" 
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/B4o8PvcqHC4" 
+  title="Virtual Tour Example" 
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+  allowfullscreen>
+</iframe>
+        </div>
+    </section>
+
+    <!-- Floor Plans -->
+    <section class="floor-plans">
+        <div class="container">
+            <div class="section-title">
+                <h2>Professional Floor Plans</h2>
+                <p>Clear, detailed floor plans help buyers visualize the flow and potential of your property.</p>
+            </div>
+            <div class="plans-container">
+                <div class="plan-card">
+                    <h3>First Floor</h3>
+                    <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="First Floor Plan">
+                    <p>Open concept living area with kitchen, dining, and family room.</p>
+                </div>
+                <div class="plan-card">
+                    <h3>Second Floor</h3>
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Second Floor Plan">
+                    <p>Spacious bedrooms including master suite with walk-in closet.</p>
+                </div>
+                <div class="plan-card">
+                    <h3>Property Layout</h3>
+                    <img src="https://images.unsplash.com/photo-1600566752225-580d5e5b8a66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Property Layout">
+                    <p>Landscaped yard with patio, garden, and two-car garage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Neighborhood Info -->
+    <section class="neighborhood">
+        <div class="container">
+            <div class="section-title">
+                <h2>Neighborhood Information</h2>
+                <p>Buyers care about the area as much as the property itself. We highlight your neighborhood's best features.</p>
+            </div>
+            <div class="neighborhood-grid">
+                <div class="neighborhood-card">
+                    <h3><i class="fas fa-school"></i> Schools</h3>
+                    <p>The property is located in the highly-rated Springfield School District, with an elementary school just 0.5 miles away.</p>
+                    <ul>
+                        <li>Springfield Elementary: 9/10 rating</li>
+                        <li>Central Middle School: 8/10 rating</li>
+                        <li>Springfield High: 9/10 rating</li>
+                    </ul>
+                </div>
+                <div class="neighborhood-card">
+                    <h3><i class="fas fa-utensils"></i> Dining & Shopping</h3>
+                    <p>Vibrant downtown area with numerous restaurants and shops within walking distance.</p>
+                    <ul>
+                        <li>5-minute walk to Main Street shops</li>
+                        <li>10+ restaurants within 1 mile</li>
+                        <li>Whole Foods Market 1.2 miles away</li>
+                    </ul>
+                </div>
+                <div class="neighborhood-card">
+                    <h3><i class="fas fa-subway"></i> Transportation</h3>
+                    <p>Excellent transportation links make commuting easy.</p>
+                    <ul>
+                        <li>Springfield Metro Station: 0.7 miles</li>
+                        <li>Bus stops on Main Street</li>
+                        <li>Easy access to I-95 and Route 1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="contact-section" id="contact">
+        <div class="container contact-container">
+            <div class="contact-info">
+                <h3>Ready to Sell Your Home?</h3>
+                <p>Fill out the form or contact us directly to get started with a free, no-obligation valuation of your property.</p>
+                
+                <div class="contact-method">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Call Us</h4>
+                        <p>+263719922414</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email Us</h4>
+                        <p>sales@nhrealestate.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Visit Our Office</h4>
+                        <p>123 Main Street, Springfield, Chinhoyi</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Get a Free Valuation</h3>
+                <form id="valuation-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="property-address">Property Address</label>
+                        <input type="text" id="property-address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Tell Us About Your Property</label>
+                        <textarea id="message"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-blue">Request Valuation</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Clients Say</h2>
+                <p>Don't just take our word for it - hear from homeowners who've successfully sold with us.</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="quote">"NH Real Estate sold my home for 15% above asking price in just 10 days. Their marketing strategy was incredible and they handled every detail perfectly."</div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Sarah Johnson">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Homeowner in Springfield</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote">"As first-time sellers, we were nervous about the process. Our agent explained everything clearly and made us feel confident. We got multiple offers the first week!"</div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen">
+                        <div class="author-info">
+                            <h4>Michael Chen</h4>
+                            <p>Homeowner in Springfield</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote">"I've sold 3 properties with NH Real Estate and each time the experience has been exceptional. They truly understand how to maximize value and minimize stress."</div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Lisa Rodriguez">
+                        <div class="author-info">
+                            <h4>Lisa Rodriguez</h4>
+                            <p>Investor & Homeowner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>NH Real Estate</h3>
+                    <p>Helping you find your dream home or sell your property for the best possible price.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="sell.html">Sell</a></li>
+                        <!-- <li><a href="buy.html">Buy</a></li>
+                        <li><a href="rent.html">Rent</a></li>
+                        
+                        <li><a href="agents.html">Agents</a></li> -->
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Home Valuation</a></li>
+                        <li><a href="#">Property Management</a></li>
+                        <li><a href="#">Mortgage Services</a></li>
+                        <li><a href="#">Investment Properties</a></li>
+                        <li><a href="#">Relocation Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +263719922414</li>
+                        <li><i class="fas fa-envelope"></i> info@nhrealestate.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Chinhoyi</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 NH Real Estate. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handling
+        document.getElementById('valuation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            // In a real application, you would send this data to your server
+            console.log('Form submitted:', { name, email });
+            
+            // Show success message
+            alert(`Thank you, ${name}! We've received your request and will contact you shortly at ${email}.`);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

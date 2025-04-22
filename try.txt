@@ -1,0 +1,33 @@
+ <!-- Hero Section -->
+    <main>
+        <section id="explore" class="hero-section">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <img src="images/pexel5.jpg" alt="Buy Property">
+                        <h3>Buy</h3>
+                        <p>Find your dream home from our extensive list of properties for sale.</p>
+                        <a href="#buy" class="btn">Learn More</a>
+                    </div>
+                    <div class="card">
+                        <img src="rent.jpg" alt="Rent Property">
+                        <h3>Rent</h3>
+                        <p>Explore rental properties to suit every budget.</p>
+                        <a href="#rent" class="btn">Learn More</a>
+                    </div>
+                    <div class="card">
+                        <img src="sell.jpg" alt="Sell Property">
+                        <h3>Sell</h3>
+                        <p>List your property and connect with buyers.</p>
+                        <a href="#sell" class="btn">Learn More</a>
+                    </div>
+                    <div class="card">
+                        <img src="agent.jpg" alt="Find an Agent">
+                        <h3>Find an Agent</h3>
+                        <p>Connect with top-rated real estate agents.</p>
+                        <a href="#agent" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>

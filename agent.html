@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Agents | NH Real Estate</title>
+    <style>
+        :root {
+            --primary-orange: #FF8C00;
+            --primary-blue: #0066CC;
+            --light-blue: #E6F2FF;
+            --dark-gray: #333333;
+            --light-gray: #F5F5F5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            margin-left: 10px;
+        }
+        
+        .logo-text h1 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+        }
+        
+        .logo-text span {
+            color: var(--primary-orange);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-orange);
+        }
+        
+        .active {
+            color: var(--primary-orange);
+        }
+        
+        .agents-hero {
+            background: linear-gradient(rgba(0, 102, 204, 0.8), rgba(0, 102, 204, 0.8)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+        
+        .agents-hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .agents-hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .agents-intro {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .agents-intro h3 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .agents-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .agent-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        
+        .agent-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .agent-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .agent-card:hover .agent-image img {
+            transform: scale(1.05);
+        }
+        
+        .agent-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .agent-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-blue);
+        }
+        
+        .agent-info p.position {
+            color: var(--primary-orange);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .agent-info p.area {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .agent-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .agent-contact a {
+            color: white;
+            background-color: var(--primary-blue);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .agent-contact a:hover {
+            background-color: var(--primary-orange);
+        }
+        
+        .agent-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-item .number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+        
+        .stat-item .label {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        .join-team {
+            background-color: var(--light-blue);
+            padding: 3rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .join-team h3 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .join-team p {
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .join-btn {
+            background-color: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .join-btn:hover {
+            background-color: #E67E00;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .footer-column h4 {
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background-color: var(--primary-blue);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-orange);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #555;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="https://via.placeholder.com/50x50" alt="NH Real Estate Logo">
+                <div class="logo-text">
+                    <h1>NH <span>Real Estate</span></h1>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="agents.html" class="active">Agents</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="agents-hero">
+        <h2>Meet Our Expert Agents</h2>
+        <p>Our team of dedicated real estate professionals is ready to guide you through every step of your New Hampshire property journey.</p>
+    </section>
+    
+    <div class="agents-intro">
+        <h3>Why Work With Our Agents?</h3>
+        <p>With years of experience and deep knowledge of the New Hampshire real estate market, our agents are committed to providing exceptional service tailored to your unique needs. Whether you're buying, selling, or investing, we have the right professional to help you achieve your goals.</p>
+    </div>
+    
+    <div class="agents-container">
+        <div class="agents-grid">
+            <!-- Agent 1 -->
+            <div class="agent-card">
+                <div class="agent-image">
+                    <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Sarah Johnson">
+                </div>
+                <div class="agent-info">
+                    <h4>Sarah Johnson</h4>
+                    <p class="position">Senior Real Estate Agent</p>
+                    <p class="area">Specializes in Manchester & Southern NH</p>
+                    
+                    <div class="agent-contact">
+                        <a href="tel:+16035551234"><i class="fas fa-phone-alt"></i></a>
+                        <a href="mailto:sarah@nhrealestate.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat-item">
+                            <div class="number">15+</div>
+                            <div class="label">Years</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">250+</div>
+                            <div class="label">Homes Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">98%</div>
+                            <div class="label">Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent 2 -->
+            <div class="agent-card">
+                <div class="agent-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Michael Chen">
+                </div>
+                <div class="agent-info">
+                    <h4>Michael Chen</h4>
+                    <p class="position">Luxury Home Specialist</p>
+                    <p class="area">Specializes in Portsmouth & Seacoast</p>
+                    
+                    <div class="agent-contact">
+                        <a href="tel:+16035551235"><i class="fas fa-phone-alt"></i></a>
+                        <a href="mailto:michael@nhrealestate.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat-item">
+                            <div class="number">12+</div>
+                            <div class="label">Years</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">$150M+</div>
+                            <div class="label">Volume</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">4.9</div>
+                            <div class="label">Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent 3 -->
+            <div class="agent-card">
+                <div class="agent-image">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Emily Rodriguez">
+                </div>
+                <div class="agent-info">
+                    <h4>Emily Rodriguez</h4>
+                    <p class="position">First-Time Homebuyer Expert</p>
+                    <p class="area">Specializes in Nashua & Southern NH</p>
+                    
+                    <div class="agent-contact">
+                        <a href="tel:+16035551236"><i class="fas fa-phone-alt"></i></a>
+                        <a href="mailto:emily@nhrealestate.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat-item">
+                            <div class="number">8+</div>
+                            <div class="label">Years</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">150+</div>
+                            <div class="label">Families Helped</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">100%</div>
+                            <div class="label">Recommendation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent 4 -->
+            <div class="agent-card">
+                <div class="agent-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="David Wilson">
+                </div>
+                <div class="agent-info">
+                    <h4>David Wilson</h4>
+                    <p class="position">Commercial Real Estate</p>
+                    <p class="area">Specializes in Statewide Investments</p>
+                    
+                    <div class="agent-contact">
+                        <a href="tel:+16035551237"><i class="fas fa-phone-alt"></i></a>
+                        <a href="mailto:david@nhrealestate.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat-item">
+                            <div class="number">20+</div>
+                            <div class="label">Years</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">$500M+</div>
+                            <div class="label">Transactions</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">Top 1%</div>
+                            <div class="label">National</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent 5 -->
+            <div class="agent-card">
+                <div class="agent-image">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Jessica Lee">
+                </div>
+                <div class="agent-info">
+                    <h4>Jessica Lee</h4>
+                    <p class="position">Lakefront Specialist</p>
+                    <p class="area">Specializes in Lakes Region</p>
+                    
+                    <div class="agent-contact">
+                        <a href="tel:+16035551238"><i class="fas fa-phone-alt"></i></a>
+                        <a href="mailto:jessica@nhrealestate.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat-item">
+                            <div class="number">10+</div>
+                            <div class="label">Years</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">75+</div>
+                            <div class="label">Lake Homes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">5.0</div>
+                            <div class="label">Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agent 6 -->
+            <div class="agent-card">
+                <div class="agent-image">
+                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Robert Taylor">
+                </div>
+                <div class="agent-info">
+                    <h4>Robert Taylor</h4>
+                    <p class="position">Land & Development</p>
+                    <p class="area">Specializes in Northern NH</p>
+                    
+                    <div class="agent-contact">
+                        <a href="tel:+16035551239"><i class="fas fa-phone-alt"></i></a>
+                        <a href="mailto:robert@nhrealestate.com"><i class="fas fa-envelope"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    
+                    <div class="agent-stats">
+                        <div class="stat-item">
+                            <div class="number">15+</div>
+                            <div class="label">Years</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">500+</div>
+                            <div class="label">Acres Sold</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="number">Expert</div>
+                            <div class="label">Zoning</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section class="join-team">
+        <h3>Want to Join Our Team?</h3>
+        <p>We're always looking for talented, motivated real estate professionals to join our growing team. If you're passionate about helping clients and have a strong work ethic, we'd love to hear from you.</p>
+        <a href="contact.html" class="join-btn">Contact Us About Opportunities</a>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>NH Real Estate</h4>
+                <p>Your trusted partner for all your New Hampshire real estate needs. We're committed to helping you find your dream home or sell your property for the best value.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="agents.html">Agents</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Buy a Home</a></li>
+                    <li><a href="#">Sell a Home</a></li>
+                    <li><a href="#">Property Valuation</a></li>
+                    <li><a href="#">Rental Properties</a></li>
+                    <li><a href="#">Commercial Real Estate</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 NH Real Estate. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

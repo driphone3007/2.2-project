@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RealEstatePro | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="newdash.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-building"></i> RealEstatePro</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#saved-properties"><i class="fas fa-heart"></i> Saved Properties</a></li>
+                    <li><a href="#saved-searches"><i class="fas fa-search"></i> Saved Searches</a></li>
+                    <li><a href="#market-trends"><i class="fas fa-chart-line"></i> Market Trends</a></li>
+                    <li><a href="#clients"><i class="fas fa-users"></i> Clients</a></li>
+                    <li><a href="#appointments"><i class="fas fa-calendar-alt"></i> Appointments</a></li>
+                    <li><a href="#contracts"><i class="fas fa-file-signature"></i> Contracts</a></li>
+                    <li><a href="#reports"><i class="fas fa-file-alt"></i> Reports</a></li>
+                    <li><a href="#messages"><i class="fas fa-envelope"></i> Messages</a></li>
+                    <li><a href="#featured-properties"><i class="fas fa-star"></i> Featured Properties</a></li>
+                    <li><a href="#property-location"><i class="fas fa-map-marked-alt"></i> Property Map</a></li>
+                    <li><a href="#mortgage-calculator"><i class="fas fa-calculator"></i> Mortgage Calculator</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="images/pexels-frans-van-heerden-201846-1438832.jpg" alt="User Profile">
+                    <div>
+                        <h4>John Doe</h4>
+                        <p>Realtor</p>
+                    </div>
+                </div>
+                <button class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search properties, clients, etc...">
+                    <button title="Search"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </button>
+                    <button class="message-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="message-count">5</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard Sections -->
+            <div class="content-sections">
+                <!-- Dashboard Overview -->
+                <section id="dashboard" class="section active">
+                    <h2>Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Saved Properties</h3>
+                            <p class="stat-value">24</p>
+                            <p class="stat-change"><i class="fas fa-arrow-up"></i> 12% from last month</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Clients</h3>
+                            <p class="stat-value">15</p>
+                            <p class="stat-change"><i class="fas fa-arrow-up"></i> 5% from last month</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Upcoming Appointments</h3>
+                            <p class="stat-value">7</p>
+                            <p class="stat-change"><i class="fas fa-arrow-down"></i> 2 from yesterday</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Pending Contracts</h3>
+                            <p class="stat-value">3</p>
+                            <p class="stat-change"><i class="fas fa-arrow-up"></i> 1 new today</p>
+                        </div>
+                    </div>
+                    <div class="recent-activities">
+                        <h3>Recent Activities</h3>
+                        <ul class="activity-list">
+                            <li>
+                                <i class="fas fa-home activity-icon"></i>
+                                <div>
+                                    <p>New property saved: 123 Main St</p>
+                                    <small>2 hours ago</small>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-handshake activity-icon"></i>
+                                <div>
+                                    <p>Meeting scheduled with Sarah Johnson</p>
+                                    <small>5 hours ago</small>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-file-signature activity-icon"></i>
+                                <div>
+                                    <p>Contract signed for 456 Oak Ave</p>
+                                    <small>1 day ago</small>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-search activity-icon"></i>
+                                <div>
+                                    <p>New search saved: 3-bedroom in Downtown</p>
+                                    <small>2 days ago</small>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Saved Properties -->
+                <section id="saved-properties" class="section">
+                    <div class="section-header">
+                        <h2>Saved Properties</h2>
+                        <div class="section-actions">
+                            <button class="filter-btn"><i class="fas fa-filter"></i> Filter</button>
+                            <button class="sort-btn"><i class="fas fa-sort"></i> Sort</button>
+                        </div>
+                    </div>
+                    <div class="property-grid">
+                        <!-- Property cards will be loaded here via JS -->
+                    </div>
+                </section>
+
+                <!-- Saved Searches -->
+                <section id="saved-searches" class="section">
+                    <h2>Saved Searches</h2>
+                    <div class="searches-list">
+                        <!-- Saved searches will be loaded here via JS -->
+                    </div>
+                </section>
+
+                <!-- Market Trends -->
+                <section id="market-trends" class="section">
+                    <h2>Market Trends</h2>
+                    <div class="trends-container">
+                        <div class="trend-filters">
+                            <label for="trend-period">Select Trend Period:</label>
+                            <select id="trend-period">
+                                <option value="monthly">Monthly</option>
+                                <option value="quarterly">Quarterly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+                            <label for="trend-region">Select Trend Region:</label>
+                            <select id="trend-region">
+                                <option value="all">All Regions</option>
+                                <option value="north">North Region</option>
+                                <option value="south">South Region</option>
+                                <option value="east">East Region</option>
+                                <option value="west">West Region</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="marketTrendChart"></canvas>
+                        </div>
+                        <div class="trend-summary">
+                            <div class="summary-card">
+                                <h3>Average Price</h3>
+                                <p class="summary-value">$450,000</p>
+                                <p class="summary-change up"><i class="fas fa-arrow-up"></i> 5.2%</p>
+                            </div>
+                            <div class="summary-card">
+                                <h3>Days on Market</h3>
+                                <p class="summary-value">32</p>
+                                <p class="summary-change down"><i class="fas fa-arrow-down"></i> 8.7%</p>
+                            </div>
+                            <div class="summary-card">
+                                <h3>Inventory</h3>
+                                <p class="summary-value">1,240</p>
+                                <p class="summary-change up"><i class="fas fa-arrow-up"></i> 12.3%</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Clients -->
+                <section id="clients" class="section">
+                    <div class="section-header">
+                        <h2>Clients</h2>
+                        <button class="add-client-btn"><i class="fas fa-plus"></i> Add Client</button>
+                    </div>
+                    <div class="clients-table-container">
+                        <table class="clients-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Last Contact</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Client rows will be loaded here via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Appointments -->
+                <section id="appointments" class="section">
+                    <div class="section-header">
+                        <h2>Appointments</h2>
+                        <button class="add-appointment-btn"><i class="fas fa-plus"></i> Schedule</button>
+                    </div>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="prev-month" title="Previous Month"><i class="fas fa-chevron-left"></i></button>
+                            <h3 class="current-month">April 2023</h3>
+                            <button class="next-month" title="Next Month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- Calendar will be generated via JS -->
+                        </div>
+                    </div>
+                    <div class="upcoming-appointments">
+                        <h3>Upcoming Appointments</h3>
+                        <div class="appointments-list">
+                            <!-- Appointments will be loaded here via JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contracts -->
+                <section id="contracts" class="section">
+                    <h2>Contracts</h2>
+                    <div class="contracts-tabs">
+                        <button class="tab-btn active" data-tab="pending">Pending</button>
+                        <button class="tab-btn" data-tab="signed">Signed</button>
+                        <button class="tab-btn" data-tab="expired">Expired</button>
+                    </div>
+                    <div class="contracts-list">
+                        <!-- Contracts will be loaded here via JS -->
+                    </div>
+                </section>
+
+                <!-- Reports -->
+                <section id="reports" class="section">
+                    <h2>Reports</h2>
+                    <div class="reports-grid">
+                        <div class="report-card">
+                            <i class="fas fa-chart-pie"></i>
+                            <h3>Market Analysis</h3>
+                            <p>Detailed breakdown of current market conditions</p>
+                            <button class="generate-btn">Generate Report</button>
+                        </div>
+                        <div class="report-card">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>Client Activity</h3>
+                            <p>Track client interactions and progress</p>
+                            <button class="generate-btn">Generate Report</button>
+                        </div>
+                        <div class="report-card">
+                            <i class="fas fa-home"></i>
+                            <h3>Property Portfolio</h3>
+                            <p>Summary of all your listed properties</p>
+                            <button class="generate-btn">Generate Report</button>
+                        </div>
+                        <div class="report-card">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <h3>Commission Report</h3>
+                            <p>Earnings and projected commissions</p>
+                            <button class="generate-btn">Generate Report</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Messages -->
+                <section id="messages" class="section">
+                    <h2>Messages</h2>
+                    <div class="messages-container">
+                        <div class="conversation-list">
+                            <!-- Conversations will be loaded here via JS -->
+                        </div>
+                        <div class="message-view">
+                            <div class="message-header">
+                                <h3>Select a conversation</h3>
+                            </div>
+                            <div class="message-content">
+                                <p>Select a conversation from the list to view messages</p>
+                            </div>
+                            <div class="message-input">
+                                <textarea placeholder="Type your message here..."></textarea>
+                                <button class="send-btn">Send <i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Featured Properties -->
+                <section id="featured-properties" class="section">
+                    <div class="section-header">
+                        <h2>Featured Properties</h2>
+                        <button class="add-featured-btn"><i class="fas fa-plus"></i> Add Featured</button>
+                    </div>
+                    <div class="featured-grid">
+                        <!-- Featured properties will be loaded here via JS -->
+                    </div>
+                </section>
+
+                <!-- Property Location Map -->
+                <section id="property-location" class="section">
+                    <h2>Property Location Map</h2>
+                    <div class="map-container">
+                        <div id="propertyMap"></div>
+                        <div class="map-controls">
+                            <button class="map-filter-btn" data-filter="all">All Properties</button>
+                            <button class="map-filter-btn" data-filter="saved">Saved Properties</button>
+                            <button class="map-filter-btn" data-filter="featured">Featured Properties</button>
+                            <button class="map-filter-btn" data-filter="sold">Recently Sold</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mortgage Calculator -->
+                <section id="mortgage-calculator" class="section">
+                    <h2>Mortgage Calculator</h2>
+                    <div class="calculator-container">
+                        <div class="calculator-form">
+                            <div class="form-group">
+                                <label for="home-price">Home Price ($)</label>
+                                <input type="number" id="home-price" value="350000">
+                            </div>
+                            <div class="form-group">
+                                <label for="down-payment">Down Payment ($)</label>
+                                <input type="number" id="down-payment" value="70000">
+                            </div>
+                            <div class="form-group">
+                                <label for="loan-term">Loan Term (years)</label>
+                                <select id="loan-term">
+                                    <option value="10">10</option>
+                                    <option value="15">15</option>
+                                    <option value="20">20</option>
+                                    <option value="30" selected>30</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="interest-rate">Interest Rate (%)</label>
+                                <input type="number" id="interest-rate" step="0.01" value="4.5">
+                            </div>
+                            <button class="calculate-btn">Calculate</button>
+                        </div>
+                        <div class="calculator-results">
+                            <h3>Monthly Payment</h3>
+                            <p class="monthly-payment">$1,417.63</p>
+                            <div class="breakdown">
+                                <div class="breakdown-item">
+                                    <span>Principal & Interest</span>
+                                    <span>$1,417.63</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Property Tax</span>
+                                    <span>$291.67</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Home Insurance</span>
+                                    <span>$100.00</span>
+                                </div>
+                                <div class="breakdown-item total">
+                                    <span>Total Monthly Payment</span>
+                                    <span>$1,809.30</span>
+                                </div>
+                            </div>
+                            <div class="amortization-chart">
+                                <canvas id="amortizationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="addClientModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add New Client</h2>
+            <form id="clientForm">
+                <div class="form-group">
+                    <label for="clientName">Full Name</label>
+                    <input type="text" id="clientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientEmail">Email</label>
+                    <input type="email" id="clientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="clientPhone">Phone</label>
+                    <input type="tel" id="clientPhone">
+                </div>
+                <div class="form-group">
+                    <label for="clientType">Client Type</label>
+                    <select id="clientType">
+                        <option value="buyer">Buyer</option>
+                        <option value="seller">Seller</option>
+                        <option value="both">Both</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="clientNotes">Notes</label>
+                    <textarea id="clientNotes"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Save Client</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="addAppointmentModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Schedule Appointment</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="appointmentTitle">Title</label>
+                    <input type="text" id="appointmentTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentClient">Client</label>
+                    <select id="appointmentClient" required>
+                        <option value="">Select Client</option>
+                        <!-- Clients will be loaded here via JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentDate">Date</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentTime">Time</label>
+                    <input type="time" id="appointmentTime" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentLocation">Location</label>
+                    <input type="text" id="appointmentLocation">
+                </div>
+                <div class="form-group">
+                    <label for="appointmentNotes">Notes</label>
+                    <textarea id="appointmentNotes"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Schedule</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="propertyDetailsModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="property-modal-content">
+                <!-- Property details will be loaded here via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="newdash.js"></script>
+</body>
+</html>

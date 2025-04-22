@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Real Estate</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --primary: #218bef;
+            --secondary: #1a73e8;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --dark: #343a40;
+            --light: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f7fa;
+        }
+        
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-category {
+            padding: 10px 20px;
+            color: #6c757d;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .menu-item {
+            display: block;
+            padding: 12px 20px;
+            color: #495057;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .menu-item:hover, 
+        .menu-item.active {
+            background: rgba(33, 139, 239, 0.1);
+            border-left: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .menu-item i {
+            width: 24px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Styles */
+        .topbar {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 25px;
+            background: #f5f7fa;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-title {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        
+        .stat-change {
+            font-size: 12px;
+        }
+        
+        .stat-change.positive {
+            color: var(--success);
+        }
+        
+        .stat-change.negative {
+            color: var(--danger);
+        }
+        
+        /* Property Management */
+        .property-management {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Form Styles */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            flex: 1;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(33, 139, 239, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Image Upload */
+        .image-upload {
+            border: 2px dashed #ddd;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .image-upload:hover {
+            border-color: var(--primary);
+        }
+        
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .preview-item {
+            width: 120px;
+            height: 120px;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--danger);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: #212529;
+        }
+        
+        /* Property Table */
+        .property-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .property-table th,
+        .property-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .property-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .property-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-sold {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            
+            .sidebar-header span,
+            .menu-item span {
+                display: none;
+            }
+            
+            .menu-item {
+                text-align: center;
+                padding: 15px 0;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>NH RealEstate</h3>
+                <span>Admin Dashboard</span>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-category">Main</div>
+                <a href="#" class="menu-item active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                <div class="menu-category">Properties</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add Property</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-home"></i>
+                    <span>All Properties</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-tag"></i>
+                    <span>For Sale</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>For Rent</span>
+                </a>
+                
+                <div class="menu-category">Management</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Agents</span>
+                </a>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-comments"></i>
+                    <span>Messages</span>
+                </a>
+                
+                <div class="menu-category">Settings</div>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="index.html" class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Topbar -->
+            <div class="topbar">
+                <div>
+                    <button class="btn btn-primary" id="toggleSidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="User" class="user-avatar">
+                    <div>
+                        <div class="user-name">Admin User</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="page-header">
+                    <h1 class="page-title">Property Management</h1>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add New Property
+                    </button>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-title">Total Properties</div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 12% from last month
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">For Sale</div>
+                        <div class="stat-value">87</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 5% from last month
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">For Rent</div>
+                        <div class="stat-value">55</div>
+                        <div class="stat-change negative">
+                            <i class="fas fa-arrow-down"></i> 3% from last month
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-title">Revenue</div>
+                        <div class="stat-value">$284,500</div>
+                        <div class="stat-change positive">
+                            <i class="fas fa-arrow-up"></i> 18% from last month
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add Property Form -->
+                <div class="property-management">
+                    <h2 class="section-title">Add New Property</h2>
+                    
+                    <form id="propertyForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Property Title</label>
+                                <input type="text" class="form-control" placeholder="Beautiful Family Home" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Property Type</label>
+                                <select class="form-control" required>
+                                    <option value="">Select Type</option>
+                                    <option value="house">House</option>
+                                    <option value="apartment">Apartment</option>
+                                    <option value="villa">Villa</option>
+                                    <option value="townhouse">Townhouse</option>
+                                    <option value="land">Land</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Price ($)</label>
+                                <input type="number" class="form-control" placeholder="350000" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Status</label>
+                                <select class="form-control" required>
+                                    <option value="for-sale">For Sale</option>
+                                    <option value="for-rent">For Rent</option>
+                                    <option value="sold">Sold</option>
+                                    <option value="rented">Rented</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Bedrooms</label>
+                                <input type="number" class="form-control" placeholder="3" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Bathrooms</label>
+                                <input type="number" class="form-control" placeholder="2" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Area (sqft)</label>
+                                <input type="number" class="form-control" placeholder="2000" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" placeholder="1234 Elm Street, Springfield" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" rows="4" placeholder="Enter property description..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Property Images</label>
+                            <div class="image-upload" id="imageUpload">
+                                <i class="fas fa-cloud-upload-alt" style="font-size: 24px; margin-bottom: 10px;"></i>
+                                <p>Drag & drop images here or click to browse</p>
+                                <input type="file" id="propertyImages" multiple accept="image/*" style="display: none;">
+                            </div>
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Featured</label>
+                                <select class="form-control">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Agent</label>
+                                <select class="form-control">
+                                    <option value="">Select Agent</option>
+                                    <option value="1">John Smith</option>
+                                    <option value="2">Sarah Johnson</option>
+                                    <option value="3">Michael Brown</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Property
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Recent Properties -->
+                <div class="property-management">
+                    <h2 class="section-title">Recent Properties</h2>
+                    
+                    <table class="property-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Property</th>
+                                <th>Type</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#001</td>
+                                <td>
+                                    <strong>Luxury Villa</strong><br>
+                                    <small>1234 Elm Street</small>
+                                </td>
+                                <td>Villa</td>
+                                <td>$750,000</td>
+                                <td><span class="status-badge status-active">For Sale</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-success btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#002</td>
+                                <td>
+                                    <strong>Modern Apartment</strong><br>
+                                    <small>5678 Oak Avenue</small>
+                                </td>
+                                <td>Apartment</td>
+                                <td>$250,000</td>
+                                <td><span class="status-badge status-active">For Sale</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-success btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#003</td>
+                                <td>
+                                    <strong>Cozy Apartment</strong><br>
+                                    <small>345 Maple Street</small>
+                                </td>
+                                <td>Apartment</td>
+                                <td>$1,200/mo</td>
+                                <td><span class="status-badge status-pending">For Rent</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-success btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#004</td>
+                                <td>
+                                    <strong>Suburban Home</strong><br>
+                                    <small>678 Birch Lane</small>
+                                </td>
+                                <td>House</td>
+                                <td>$450,000</td>
+                                <td><span class="status-badge status-sold">Sold</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn btn-success btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Sidebar
+        document.getElementById('toggleSidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('collapsed');
+        });
+        
+        // Image Upload Functionality
+        const imageUpload = document.getElementById('imageUpload');
+        const imageInput = document.getElementById('propertyImages');
+        const imagePreview = document.getElementById('imagePreview');
+        
+        imageUpload.addEventListener('click', function() {
+            imageInput.click();
+        });
+        
+        imageInput.addEventListener('change', function(e) {
+            const files = e.target.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (!file.type.match('image.*')) continue;
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview">
+                        <div class="remove-image" onclick="removeImage(this)">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    `;
+                    imagePreview.appendChild(previewItem);
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        function removeImage(element) {
+            element.parentElement.remove();
+        }
+        
+        // Form Submission
+        document.getElementById('propertyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Property added successfully!');
+            this.reset();
+            imagePreview.innerHTML = '';
+        });
+        
+        // Drag and Drop
+        imageUpload.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.borderColor = 'var(--primary)';
+            this.style.backgroundColor = 'rgba(33, 139, 239, 0.1)';
+        });
+        
+        imageUpload.addEventListener('dragleave', function() {
+            this.style.borderColor = '#ddd';
+            this.style.backgroundColor = 'transparent';
+        });
+        
+        imageUpload.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.borderColor = '#ddd';
+            this.style.backgroundColor = 'transparent';
+            
+            imageInput.files = e.dataTransfer.files;
+            
+            // Trigger change event
+            const event = new Event('change');
+            imageInput.dispatchEvent(event);
+        });
+    </script>
+</body>
+</html>

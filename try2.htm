@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Website</title>
+    <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="styless.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Existing styles remain unchanged */
+        .auth-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-buttons .btn {
+            padding: 10px 15px;
+            margin-left: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: rgb(33, 139, 239);
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .auth-buttons .btn:hover {
+            background-color: rgb(25, 110, 190);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .auth-buttons .admin-btn {
+            background-color: #ff5722;
+        }
+        
+        .auth-buttons .admin-btn:hover {
+            background-color: #e64a19;
+        }
+        
+        .auth-buttons .dashboard-btn {
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .auth-buttons .dashboard-btn:hover {
+            background-color: #3e8e41;
+        }
+        
+        .auth-buttons .dashboard-btn i {
+            font-size: 16px;
+        }
+        
+        .like-icon.active {
+            color: red;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .auth-buttons {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 5px;
+            }
+            
+            .auth-buttons .btn {
+                margin-left: 0;
+                width: 100px;
+                text-align: center;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo" style="margin-left: 0; position: absolute; display: flex; flex-direction: row;">
+            <img src="./images/pngegg (1).png" width="50" height="50" alt="">
+            <h3 style="color: rgb(33, 139, 239); padding-top: 1.2rem;">NH</h3>
+        </div>
+
+        <div class="container">
+            <h1>Find Your Dream Home</h1>
+            <p>Explore the best properties to buy, rent, or sell in your area.</p>
+
+            <!-- Header Image -->
+            <div class="header-image"></div>
+
+            <!-- Explore Button -->
+            <a href="#explore" class="btn">Explore Now</a>
+        </div>
+
+        <!-- Login & Register & Admin & Dashboard Buttons -->
+        <div class="auth-buttons">
+            <a href="login.htm" class="btn login-btn">Login</a>
+            <a href="registration.htm" class="btn register-btn">Register</a>
+            <a href="admin.html" class="btn admin-btn">Admin</a>
+            <a href="#" class="btn dashboard-btn" id="dashboard-btn">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+        </div>
+    </header>
+
+    <!-- Rest of your existing HTML remains unchanged -->
+    <!-- ... -->
+
+    <!-- JavaScript -->
+    <script>
+        // Dashboard button functionality
+        document.getElementById('dashboard-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Dashboard functionality will be implemented here!');
+            // In a real implementation, this would open the dashboard modal
+            // document.getElementById('dashboard-container').style.display = 'block';
+        });
+        
+        // Your existing JavaScript remains unchanged
+    </script>
+</body>
+</html>

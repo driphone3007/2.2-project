@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Homes | NH Housing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #6ec3f4;
+            --primary-orange: #ffa500;
+            --dark-blue: #1a73e8;
+            --light-gray: #f5f7fa;
+            --dark-gray: #333;
+            --medium-gray: #666;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--dark-gray);
+        }
+        
+        /* Header Styles */
+        .buy-header {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        
+        .buy-header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .buy-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Navigation */
+        .top-nav {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .auth-btn {
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+        
+        .login-btn:hover {
+            background: rgba(110, 195, 244, 0.1);
+        }
+        
+        .signup-btn {
+            background: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            color: white;
+        }
+        
+        .signup-btn:hover {
+            background: var(--dark-blue);
+            border-color: var(--dark-blue);
+        }
+        
+        /* Search Bar */
+        .search-container {
+            background: white;
+            max-width: 1000px;
+            margin: -40px auto 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .search-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .search-tab {
+            padding: 10px 20px;
+            background: var(--light-gray);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .search-tab.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .search-group {
+            margin-bottom: 15px;
+        }
+        
+        .search-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .search-group input,
+        .search-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .search-btn {
+            grid-column: 1 / -1;
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-btn:hover {
+            background: #e69500;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark-gray);
+            display: inline-block;
+            background: white;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+            z-index: 0;
+        }
+        
+        /* Property Listings */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .property-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .property-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .property-card:hover .property-media img {
+            transform: scale(1.05);
+        }
+        
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--primary-orange);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: gold;
+            color: var(--dark-gray);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .property-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .action-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .property-info {
+            padding: 20px;
+        }
+        
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .property-address {
+            color: var(--medium-gray);
+            margin-bottom: 15px;
+        }
+        
+        .property-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .feature i {
+            color: var(--primary-orange);
+        }
+        
+        .property-description {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .view-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .view-btn:hover {
+            background: var(--dark-blue);
+        }
+        
+        .vr-tour-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: gold;
+            color: var(--dark-gray);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin-left: 10px;
+        }
+        
+        .vr-tour-btn:hover {
+            background: #ffd700;
+        }
+        
+        /* Property Details Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 1000px;
+            margin: 50px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark-gray);
+        }
+        
+        .modal-price {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .modal-address {
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .modal-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-feature i {
+            font-size: 1.2rem;
+            color: var(--primary-orange);
+            width: 30px;
+            text-align: center;
+        }
+        
+        .modal-description {
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .modal-section-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .modal-section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-orange);
+        }
+        
+        .modal-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .amenity {
+            flex: 1 0 calc(33.333% - 15px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .amenity i {
+            color: var(--primary-blue);
+        }
+        
+        .modal-map {
+            height: 400px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .modal-btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .modal-btn-primary:hover {
+            background: var(--dark-blue);
+        }
+        
+        .modal-btn-secondary {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+        
+        .modal-btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .modal-btn-premium {
+            background: gold;
+            color: var(--dark-gray);
+        }
+        
+        .modal-btn-premium:hover {
+            background: #ffd700;
+        }
+        
+        /* Contact Agent Form */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        
+        .contact-content {
+            background: white;
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .contact-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-form h2 {
+            margin-top: 0;
+            color: var(--dark-gray);
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        
+        .contact-form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .contact-submit {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .contact-submit:hover {
+            background: #e69500;
+        }
+        
+        /* Login/Signup Modal */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        
+        .auth-content {
+            background: white;
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .auth-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .auth-tab {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary-blue);
+        }
+        
+        .auth-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-blue);
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .auth-form input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .auth-submit {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .auth-submit:hover {
+            background: var(--dark-blue);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .auth-switch a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* VR Tour Modal */
+        .vr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+        }
+        
+        .vr-content {
+            width: 90%;
+            height: 90%;
+            margin: 2% auto;
+            background: black;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .vr-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+        
+        .vr-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .vr-placeholder i {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: gold;
+        }
+        
+        /* User Profile */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .user-menu {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            min-width: 200px;
+            z-index: 100;
+        }
+        
+        .user-menu.show {
+            display: block;
+        }
+        
+        .user-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        
+        .user-menu a:hover {
+            background: var(--light-gray);
+        }
+        
+        .user-menu a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .premium-indicator {
+            background: gold;
+            color: var(--dark-gray);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        /* Recommendations */
+        .recommendations {
+            background: var(--light-gray);
+            padding: 60px 0;
+            margin: 50px 0;
+        }
+        
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .recommendation-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .recommendation-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .recommendation-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .recommendation-content {
+            padding: 20px;
+        }
+        
+        .recommendation-content h3 {
+            margin-top: 0;
+            color: var(--dark-gray);
+        }
+        
+        .recommendation-content p {
+            color: var(--medium-gray);
+            margin-bottom: 20px;
+        }
+        
+        .learn-more {
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .property-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .modal-features {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .buy-header {
+                padding: 80px 20px;
+            }
+            
+            .buy-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-header {
+                height: 300px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .amenity {
+                flex: 1 0 calc(50% - 15px);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .auth-buttons {
+                gap: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .amenity {
+                flex: 1 0 100%;
+            }
+            
+            .vr-content {
+                width: 95%;
+                height: 80%;
+            }
+            
+            .contact-content,
+            .auth-content {
+                margin: 50px auto;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="#" class="logo">NH Housing</a>
+            <div class="nav-links">
+                <a href="#">Buy</a>
+                <!-- <a href="#">Rent</a>
+                <a href="#">Sell</a>
+                <a href="#">Agents</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a> -->
+            </div>
+            <div id="authSection">
+                <div class="auth-buttons">
+                    <button class="auth-btn login-btn" id="loginBtn">Log In</button>
+                    <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Buy Properties Header -->
+    <section class="buy-header">
+        <h1>Find Your Perfect Home</h1>
+        <p>Browse our extensive collection of 50+ homes for sale and discover your dream property</p>
+    </section>
+    
+    <!-- Property Search -->
+    <div class="search-container">
+        <div class="search-tabs">
+            <button class="search-tab active">Buy</button>
+            <button class="search-tab">Rent</button>
+            <!-- <button class="search-tab">Commercial</button> -->
+        </div>
+        
+        <form class="search-form" id="propertySearch">
+            <div class="search-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" placeholder="City, Neighborhood, or ZIP">
+            </div>
+            
+            <div class="search-group">
+                <label for="price-min">Min Price</label>
+                <select id="price-min">
+                    <option value="">Any</option>
+                    <option value="100000">$100,000</option>
+                    <option value="200000">$200,000</option>
+                    <option value="300000">$300,000</option>
+                    <option value="400000">$400,000</option>
+                    <option value="500000">$500,000</option>
+                </select>
+            </div>
+            
+            <div class="search-group">
+                <label for="price-max">Max Price</label>
+                <select id="price-max">
+                    <option value="">Any</option>
+                    <option value="200000">$200,000</option>
+                    <option value="300000">$300,000</option>
+                    <option value="400000">$400,000</option>
+                    <option value="500000">$500,000</option>
+                    <option value="750000">$750,000</option>
+                    <option value="1000000">$1,000,000</option>
+                    <option value="1500000">$1,500,000</option>
+                    <option value="2000000">$2,000,000+</option>
+                </select>
+            </div>
+            
+            <div class="search-group">
+                <label for="bedrooms">Bedrooms</label>
+                <select id="bedrooms">
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                    <option value="5">5+</option>
+                </select>
+            </div>
+            
+            <div class="search-group">
+                <label for="bathrooms">Bathrooms</label>
+                <select id="bathrooms">
+                    <option value="">Any</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                </select>
+            </div>
+            
+            <div class="search-group">
+                <label for="property-type">Property Type</label>
+                <select id="property-type">
+                    <option value="">Any</option>
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="condo">Condo</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="villa">Villa</option>
+                    <option value="land">Land</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i> Search Properties
+            </button>
+        </form>
+    </div>
+    
+    <!-- Property Listings -->
+    <div class="container">
+        <div class="section-title">
+            <h2>Homes For Sale</h2>
+        </div>
+        
+        <div class="property-grid" id="propertyListings">
+            <!-- Properties will be loaded here by JavaScript -->
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <button id="loadMore" class="view-btn" style="padding: 12px 30px;">
+                <i class="fas fa-plus"></i> Load More Properties
+            </button>
+        </div>
+    </div>
+    
+    <!-- Recommendations Section -->
+    <section class="recommendations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Recommended For You</h2>
+            </div>
+            
+            <div class="recommendation-grid" id="recommendations">
+                <!-- Recommendations will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Property Details Modal -->
+    <div class="modal" id="propertyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img id="modalPropertyImage" src="" alt="Property Image">
+                <div class="modal-close" id="modalClose">&times;</div>
+            </div>
+            <div class="modal-body">
+                <h1 class="modal-title" id="modalPropertyTitle"></h1>
+                <div class="modal-price" id="modalPropertyPrice"></div>
+                <div class="modal-address" id="modalPropertyAddress"></div>
+                
+                <div class="modal-features" id="modalPropertyFeatures">
+                    <!-- Features will be added by JavaScript -->
+                </div>
+                
+                <h2 class="modal-section-title">Description</h2>
+                <div class="modal-description" id="modalPropertyDescription"></div>
+                
+                <h2 class="modal-section-title">Amenities</h2>
+                <div class="modal-amenities" id="modalPropertyAmenities">
+                    <!-- Amenities will be added by JavaScript -->
+                </div>
+                
+                <h2 class="modal-section-title">Location</h2>
+                <div class="modal-map" id="modalPropertyMap">
+                    <!-- Google Map will be loaded here -->
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-primary" id="contactAgentBtn">
+                        <i class="fas fa-phone"></i> Contact Agent
+                    </button>
+                    <button class="modal-btn modal-btn-secondary">
+                        <i class="fas fa-calendar"></i> Schedule Tour
+                    </button>
+                    <button class="modal-btn modal-btn-premium" id="vrTourBtn">
+                        <i class="fas fa-vr-cardboard"></i> VR Tour
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Contact Agent Modal -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-content">
+            <span class="contact-close" id="contactClose">&times;</span>
+            <h2>Contact Agent</h2>
+            <p>Fill out the form below and our agent will contact you shortly</p>
+            
+            <form class="contact-form" id="agentContactForm">
+                <input type="hidden" id="contactPropertyId">
+                <input type="hidden" id="contactPropertyTitle">
+                
+                <div class="search-group">
+                    <label for="contactName">Your Name</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                
+                <div class="search-group">
+                    <label for="contactEmail">Email</label>
+                    <input type="email" id="contactEmail" required>
+                </div>
+                
+                <div class="search-group">
+                    <label for="contactPhone">Phone</label>
+                    <input type="tel" id="contactPhone">
+                </div>
+                
+                <div class="search-group">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" required>I'm interested in this property and would like more information.</textarea>
+                </div>
+                
+                <div class="search-group">
+                    <label for="contactBestTime">Best Time to Contact</label>
+                    <select id="contactBestTime">
+                        <option value="any">Any time</option>
+                        <option value="morning">Morning (9am-12pm)</option>
+                        <option value="afternoon">Afternoon (12pm-5pm)</option>
+                        <option value="evening">Evening (5pm-8pm)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="contact-submit">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- VR Tour Modal -->
+    <div class="vr-modal" id="vrModal">
+        <div class="vr-content">
+            <span class="vr-close" id="vrClose">&times;</span>
+            <div class="vr-placeholder" id="vrPlaceholder">
+                <i class="fas fa-vr-cardboard"></i>
+                <h2>Virtual Reality Tour</h2>
+                <p>Put on your VR headset or use your mouse to navigate this immersive 3D tour</p>
+                <p>Use WASD keys or arrow keys to move around the property</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Login/Signup Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-content">
+            <span class="auth-close" id="authClose">&times;</span>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="loginTab">Login</button>
+                <button class="auth-tab" id="signupTab">Sign Up</button>
+            </div>
+            
+            <form class="auth-form" id="loginForm">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="auth-submit">Log In</button>
+                <div class="auth-switch">
+                    Don't have an account? <a href="#" id="showSignup">Sign up</a>
+                </div>
+            </form>
+            
+            <form class="auth-form" id="signupForm" style="display: none;">
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <input type="password" id="signupConfirm" placeholder="Confirm Password" required>
+                <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0;">
+                    <input type="checkbox" id="signupPremium" style="width: auto;">
+                    <label for="signupPremium">Upgrade to Premium ($9.99/month)</label>
+                </div>
+                <button type="submit" class="auth-submit">Create Account</button>
+                <div class="auth-switch">
+                    Already have an account? <a href="#" id="showLogin">Log in</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Sample property data (in a real app, this would come from a database)
+        const properties = [
+            {
+                id: 1,
+                title: "Luxury Waterfront Villa",
+                price: "$1,250,000",
+                address: "1234 Ocean View Drive, Malibu, CA",
+                bedrooms: 5,
+                bathrooms: 4.5,
+                sqft: 4500,
+                type: "villa",
+                description: "Stunning contemporary villa with panoramic ocean views. This architectural masterpiece features floor-to-ceiling windows, a gourmet kitchen, infinity pool, and direct beach access. The open floor plan is perfect for entertaining, while the luxurious master suite offers a private retreat.",
+                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Ocean View", "Infinity Pool", "Smart Home", "Gourmet Kitchen", "Home Theater", "Wine Cellar", "Beach Access", "Solar Panels"],
+                lat: 34.0259,
+                lng: -118.7798,
+                premium: true,
+                vrTour: true
+            },
+            {
+                id: 2,
+                title: "Modern Downtown Loft",
+                price: "$750,000",
+                address: "5678 Arts District Ave, Los Angeles, CA",
+                bedrooms: 2,
+                bathrooms: 2,
+                sqft: 1800,
+                type: "condo",
+                description: "Chic industrial-style loft in the heart of the Arts District. Features exposed brick walls, concrete floors, high ceilings, and large windows that flood the space with natural light. Building amenities include rooftop deck, fitness center, and 24/7 security.",
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Rooftop Deck", "Fitness Center", "Concierge", "Secure Parking", "High Ceilings", "Walk Score: 98"],
+                lat: 34.0395,
+                lng: -118.2342,
+                premium: false,
+                vrTour: false
+            },
+            {
+                id: 3,
+                title: "Historic Craftsman Home",
+                price: "$850,000",
+                address: "910 Heritage Lane, Pasadena, CA",
+                bedrooms: 4,
+                bathrooms: 3,
+                sqft: 3200,
+                type: "house",
+                description: "Beautifully restored 1920s Craftsman home in a prime Pasadena location. Original details include hardwood floors, built-in cabinetry, and stained glass windows, combined with modern updates like central air and a chef's kitchen. Large backyard with mature landscaping and pool.",
+                image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Historic Charm", "Chef's Kitchen", "Swimming Pool", "Original Details", "Large Backyard", "Solar Panels"],
+                lat: 34.1478,
+                lng: -118.1445,
+                premium: true,
+                vrTour: true
+            },
+            {
+                id: 4,
+                title: "Mountain View Retreat",
+                price: "$1,100,000",
+                address: "345 Pine Ridge Road, Aspen, CO",
+                bedrooms: 5,
+                bathrooms: 4,
+                sqft: 3800,
+                type: "house",
+                description: "Spectacular mountain retreat with breathtaking views. Features a great room with vaulted ceilings and massive stone fireplace, gourmet kitchen, home office, and wraparound deck. The lower level has a game room and home theater. Just minutes from skiing and hiking trails.",
+                image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Mountain Views", "Home Theater", "Game Room", "Fireplace", "Deck", "Near Skiing"],
+                lat: 39.1911,
+                lng: -106.8175,
+                premium: true,
+                vrTour: true
+            },
+            {
+                id: 5,
+                title: "Urban Townhouse",
+                price: "$650,000",
+                address: "789 City Center Blvd, Chicago, IL",
+                bedrooms: 3,
+                bathrooms: 2.5,
+                sqft: 2200,
+                type: "townhouse",
+                description: "Sophisticated urban townhouse in a vibrant neighborhood. Features an open floor plan, modern kitchen with stainless appliances, private rooftop terrace, and attached garage. Walking distance to restaurants, shops, and public transportation.",
+                image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Rooftop Terrace", "Attached Garage", "Walkable Location", "Modern Kitchen", "Smart Home"],
+                lat: 41.8781,
+                lng: -87.6298,
+                premium: false,
+                vrTour: false
+            },
+            {
+                id: 6,
+                title: "Desert Modern Home",
+                price: "$950,000",
+                address: "234 Canyon View Drive, Palm Springs, CA",
+                bedrooms: 3,
+                bathrooms: 3,
+                sqft: 2800,
+                type: "house",
+                description: "Iconic mid-century modern home with clean lines and indoor-outdoor living. Features walls of glass, updated kitchen, saltwater pool, and mountain views. Recently renovated with high-end finishes while preserving original architectural details.",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Saltwater Pool", "Mountain Views", "Mid-Century Design", "Updated Kitchen", "Outdoor Shower"],
+                lat: 33.8303,
+                lng: -116.5453,
+                premium: true,
+                vrTour: true
+            },
+            {
+                id: 7,
+                title: "Luxury Penthouse",
+                price: "$2,500,000",
+                address: "101 Skyline Tower, New York, NY",
+                bedrooms: 3,
+                bathrooms: 3.5,
+                sqft: 3200,
+                type: "condo",
+                description: "Stunning penthouse with panoramic city views. Features floor-to-ceiling windows, custom chef's kitchen, home office, and massive terrace. Building amenities include 24/7 concierge, fitness center, spa, and rooftop pool.",
+                image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["City Views", "Private Terrace", "Concierge", "Rooftop Pool", "Fitness Center", "Smart Home"],
+                lat: 40.7128,
+                lng: -74.0060,
+                premium: true,
+                vrTour: true
+            },
+            {
+                id: 8,
+                title: "Suburban Family Home",
+                price: "$550,000",
+                address: "678 Maple Street, Evanston, IL",
+                bedrooms: 4,
+                bathrooms: 2.5,
+                sqft: 2600,
+                type: "house",
+                description: "Charming family home in excellent school district. Features updated kitchen, finished basement, large backyard with deck, and two-car garage. Quiet neighborhood with parks and walking trails nearby.",
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Finished Basement", "Large Backyard", "Two-Car Garage", "Good Schools", "Updated Kitchen"],
+                lat: 42.0451,
+                lng: -87.6877,
+                premium: false,
+                vrTour: false
+            },
+            {
+                id: 9,
+                title: "Beachfront Cottage",
+                price: "$1,800,000",
+                address: "12 Sandy Lane, Cape Cod, MA",
+                bedrooms: 3,
+                bathrooms: 2,
+                sqft: 1800,
+                type: "house",
+                description: "Charming beachfront cottage with direct access to private beach. Features open living area with fireplace, screened porch, and deck with ocean views. Recently updated with modern amenities while maintaining classic Cape Cod charm.",
+                image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Beachfront", "Ocean Views", "Fireplace", "Screened Porch", "Private Beach Access"],
+                lat: 41.6688,
+                lng: -70.2962,
+                premium: true,
+                vrTour: true
+            },
+            {
+                id: 10,
+                title: "Modern Farmhouse",
+                price: "$1,350,000",
+                address: "456 Country Road, Napa Valley, CA",
+                bedrooms: 4,
+                bathrooms: 3.5,
+                sqft: 3500,
+                type: "house",
+                description: "Stunning modern farmhouse on 5 acres in wine country. Features chef's kitchen with professional appliances, great room with vaulted ceilings, home office, and wraparound porch. Property includes vineyard views, pool, and guest cottage.",
+                image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                amenities: ["Vineyard Views", "Swimming Pool", "Guest Cottage", "Chef's Kitchen", "Wraparound Porch"],
+                lat: 38.2975,
+                lng: -122.2869,
+                premium: true,
+                vrTour: true
+            },
+            // Add more properties as needed (total 50+ in a real implementation)
+        ];
+
+        // Generate more properties to reach 50+
+        for (let i = 11; i <= 50; i++) {
+            const types = ["house", "apartment", "condo", "townhouse", "villa"];
+            const randomType = types[Math.floor(Math.random() * types.length)];
+            const randomBeds = Math.floor(Math.random() * 5) + 1;
+            const randomBaths = Math.floor(Math.random() * 4) + 1;
+            const randomSqft = Math.floor(Math.random() * 3000) + 1000;
+            const randomPrice = Math.floor(Math.random() * 2000000) + 300000;
+            const isPremium = Math.random() > 0.7;
+            const hasVrTour = isPremium && Math.random() > 0.3;
+            
+            properties.push({
+                id: i,
+                title: `Beautiful ${randomType.charAt(0).toUpperCase() + randomType.slice(1)} ${i}`,
+                price: `$${randomPrice.toLocaleString()}`,
+                address: `${i}${i}${i} Sample Street, City, ST`,
+                bedrooms: randomBeds,
+                bathrooms: randomBaths,
+                sqft: randomSqft,
+                type: randomType,
+                description: `This stunning property features ${randomBeds} bedrooms and ${randomBaths} bathrooms with ${randomSqft} square feet of living space. The ${randomType} has been meticulously maintained and offers modern amenities throughout.`,
+                image: `https://source.unsplash.com/random/800x600/?house,${i}`,
+                amenities: ["Modern Kitchen", "Hardwood Floors", "Updated Bathrooms", "Laundry Room", "Parking"],
+                lat: 34.0522 + (Math.random() * 0.2 - 0.1),
+                lng: -118.2437 + (Math.random() * 0.2 - 0.1),
+                premium: isPremium,
+                vrTour: hasVrTour
+            });
+        }
+
+        // User state
+        let currentUser = null;
+        
+        // DOM elements
+        const propertyListings = document.getElementById('propertyListings');
+        const recommendations = document.getElementById('recommendations');
+        const propertyModal = document.getElementById('propertyModal');
+        const modalClose = document.getElementById('modalClose');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const contactModal = document.getElementById('contactModal');
+        const contactClose = document.getElementById('contactClose');
+        const contactAgentBtn = document.getElementById('contactAgentBtn');
+        const agentContactForm = document.getElementById('agentContactForm');
+        const vrModal = document.getElementById('vrModal');
+        const vrClose = document.getElementById('vrClose');
+        const vrTourBtn = document.getElementById('vrTourBtn');
+        const authModal = document.getElementById('authModal');
+        const authClose = document.getElementById('authClose');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginTab = document.getElementById('loginTab');
+        const signupTab = document.getElementById('signupTab');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const showLogin = document.getElementById('showLogin');
+        const showSignup = document.getElementById('showSignup');
+        const authSection = document.getElementById('authSection');
+        
+        let displayedProperties = 12;
+        let currentProperty = null;
+        
+        // Display properties
+        function renderProperties(count) {
+            propertyListings.innerHTML = '';
+            for (let i = 0; i < count && i < properties.length; i++) {
+                const property = properties[i];
+                const propertyCard = document.createElement('div');
+                propertyCard.className = 'property-card';
+                
+                // Determine badge type
+                let badge = '';
+                if (property.premium) {
+                    badge = `<div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>`;
+                } else {
+                    badge = `<div class="property-badge">For Sale</div>`;
+                }
+                
+                propertyCard.innerHTML = `
+                    <div class="property-media">
+                        <img src="${property.image}" alt="${property.title}">
+                        ${badge}
+                        <div class="property-actions">
+                            <div class="action-btn" onclick="toggleFavorite(this, ${property.id})">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="action-btn">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-price">${property.price}</div>
+                        <div class="property-address">
+                            <i class="fas fa-map-marker-alt"></i> ${property.address}
+                        </div>
+                        <div class="property-features">
+                            <div class="feature">
+                                <i class="fas fa-bed"></i> ${property.bedrooms} Beds
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-bath"></i> ${property.bathrooms} Baths
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-ruler-combined"></i> ${property.sqft.toLocaleString()} sqft
+                            </div>
+                        </div>
+                        <div class="property-description">
+                            ${property.description.substring(0, 100)}...
+                        </div>
+                        <a href="#" class="view-btn" onclick="showPropertyDetails(${property.id})">View Details</a>
+                        ${property.vrTour ? `<a href="#" class="vr-tour-btn" onclick="showVrTour(${property.id})"><i class="fas fa-vr-cardboard"></i> VR Tour</a>` : ''}
+                    </div>
+                `;
+                propertyListings.appendChild(propertyCard);
+            }
+        }
+        
+        function renderRecommendations() {
+            recommendations.innerHTML = '';
+            // Get 3 random properties as recommendations
+            const shuffled = [...properties].sort(() => 0.5 - Math.random());
+            const selected = shuffled.slice(0, 3);
+            
+            selected.forEach(property => {
+                const recCard = document.createElement('div');
+                recCard.className = 'recommendation-card';
+                recCard.innerHTML = `
+                    <div class="recommendation-img">
+                        <img src="${property.image}" alt="${property.title}">
+                        ${property.premium ? `<div class="premium-badge"><i class="fas fa-crown"></i> Premium</div>` : ''}
+                    </div>
+                    <div class="recommendation-content">
+                        <h3>${property.title}</h3>
+                        <p>${property.description.substring(0, 100)}...</p>
+                        <a href="#" class="learn-more" onclick="showPropertyDetails(${property.id})">View Property <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                recommendations.appendChild(recCard);
+            });
+        }
+        
+        function showPropertyDetails(id) {
+            const property = properties.find(p => p.id === id);
+            if (!property) return;
+            
+            currentProperty = property;
+            
+            // Set modal content
+            document.getElementById('modalPropertyImage').src = property.image;
+            document.getElementById('modalPropertyTitle').textContent = property.title;
+            document.getElementById('modalPropertyPrice').textContent = property.price;
+            document.getElementById('modalPropertyAddress').textContent = property.address;
+            document.getElementById('modalPropertyDescription').textContent = property.description;
+            
+            // Set property ID for contact form
+            document.getElementById('contactPropertyId').value = property.id;
+            document.getElementById('contactPropertyTitle').value = property.title;
+            
+            // Set features
+            const featuresContainer = document.getElementById('modalPropertyFeatures');
+            featuresContainer.innerHTML = `
+                <div class="modal-feature">
+                    <i class="fas fa-bed"></i>
+                    <span>${property.bedrooms} Bedrooms</span>
+                </div>
+                <div class="modal-feature">
+                    <i class="fas fa-bath"></i>
+                    <span>${property.bathrooms} Bathrooms</span>
+                </div>
+                <div class="modal-feature">
+                    <i class="fas fa-ruler-combined"></i>
+                    <span>${property.sqft.toLocaleString()} Square Feet</span>
+                </div>
+                <div class="modal-feature">
+                    <i class="fas fa-home"></i>
+                    <span>${property.type.charAt(0).toUpperCase() + property.type.slice(1)}</span>
+                </div>
+            `;
+            
+            // Set amenities
+            const amenitiesContainer = document.getElementById('modalPropertyAmenities');
+            amenitiesContainer.innerHTML = '';
+            property.amenities.forEach(amenity => {
+                const amenityEl = document.createElement('div');
+                amenityEl.className = 'amenity';
+                amenityEl.innerHTML = `
+                    <i class="fas fa-check"></i>
+                    <span>${amenity}</span>
+                `;
+                amenitiesContainer.appendChild(amenityEl);
+            });
+            
+            // Initialize map
+            initMap(property.lat, property.lng);
+            
+            // Show VR tour button only if property has VR tour
+            vrTourBtn.style.display = property.vrTour ? 'block' : 'none';
+            
+            // Show modal
+            propertyModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showVrTour(id) {
+            const property = properties.find(p => p.id === id);
+            if (!property) return;
+            
+            if (!currentUser) {
+                showAuthModal('login');
+                alert('Please sign in to access VR tours');
+                return;
+            }
+            
+            if (!currentUser.premium && property.premium) {
+                alert('This is a premium VR tour. Please upgrade your account to access this feature.');
+                return;
+            }
+            
+            // In a real implementation, this would load an actual VR tour
+            // For this demo, we'll just show a placeholder
+            vrModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function toggleFavorite(btn, id) {
+            if (!currentUser) {
+                showAuthModal('login');
+                alert('Please sign in to save favorites');
+                return;
+            }
+            
+            btn.classList.toggle('active');
+            // In a real app, you would save to user's favorites
+            console.log(`Property ${id} favorited: ${btn.classList.contains('active')}`);
+        }
+        
+        function initMap(lat, lng) {
+            const mapContainer = document.getElementById('modalPropertyMap');
+            mapContainer.innerHTML = ''; // Clear previous map
+            
+            // In a real implementation, you would use Google Maps API
+            // This is a placeholder for the demo
+            mapContainer.innerHTML = `
+                <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #eee;">
+                    <div style="text-align: center;">
+                        <p><i class="fas fa-map-marker-alt" style="font-size: 2rem; color: var(--primary-orange);"></i></p>
+                        <p>Google Map would display here</p>
+                        <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" style="color: var(--primary-blue);">
+                            View on Google Maps
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showContactModal() {
+            if (!currentUser) {
+                showAuthModal('login');
+                alert('Please sign in to contact an agent');
+                return;
+            }
+            
+            // Pre-fill form with user data if available
+            if (currentUser) {
+                document.getElementById('contactName').value = currentUser.name || '';
+                document.getElementById('contactEmail').value = currentUser.email || '';
+                document.getElementById('contactPhone').value = currentUser.phone || '';
+            }
+            
+            contactModal.style.display = 'block';
+        }
+        
+        function showAuthModal(tab = 'login') {
+            if (tab === 'login') {
+                loginTab.click();
+            } else {
+                signupTab.click();
+            }
+            authModal.style.display = 'block';
+        }
+        
+        function updateAuthUI() {
+            if (currentUser) {
+                authSection.innerHTML = `
+                    <div class="user-profile">
+                        <div class="user-avatar" id="userAvatar">${currentUser.name.charAt(0)}</div>
+                        <div class="user-menu" id="userMenu">
+                            <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                            <a href="#"><i class="fas fa-heart"></i> Saved Properties</a>
+                            ${currentUser.premium ? '<a href="#"><i class="fas fa-crown"></i> Premium Member</a>' : '<a href="#" id="upgradeLink"><i class="fas fa-crown"></i> Upgrade to Premium</a>'}
+                            <a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+                        </div>
+                    </div>
+                `;
+                
+                // Add event listeners for new elements
+                document.getElementById('userAvatar').addEventListener('click', () => {
+                    document.getElementById('userMenu').classList.toggle('show');
+                });
+                
+                if (document.getElementById('upgradeLink')) {
+                    document.getElementById('upgradeLink').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        alert('Premium upgrade functionality would be implemented here');
+                    });
+                }
+                
+                document.getElementById('logoutLink').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentUser = null;
+                    updateAuthUI();
+                });
+            } else {
+                authSection.innerHTML = `
+                    <div class="auth-buttons">
+                        <button class="auth-btn login-btn" id="loginBtn">Log In</button>
+                        <button class="auth-btn signup-btn" id="signupBtn">Sign Up</button>
+                    </div>
+                `;
+                
+                // Re-add event listeners to new buttons
+                document.getElementById('loginBtn').addEventListener('click', () => showAuthModal('login'));
+                document.getElementById('signupBtn').addEventListener('click', () => showAuthModal('signup'));
+            }
+        }
+        
+        // Event listeners
+        modalClose.addEventListener('click', () => {
+            propertyModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === propertyModal) {
+                propertyModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            if (e.target === contactModal) {
+                contactModal.style.display = 'none';
+            }
+            
+            if (e.target === authModal) {
+                authModal.style.display = 'none';
+            }
+            
+            if (e.target === vrModal) {
+                vrModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        contactClose.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+        
+        contactAgentBtn.addEventListener('click', showContactModal);
+        
+        vrClose.addEventListener('click', () => {
+            vrModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        vrTourBtn.addEventListener('click', () => {
+            if (currentProperty) {
+                showVrTour(currentProperty.id);
+            }
+        });
+        
+        authClose.addEventListener('click', () => {
+            authModal.style.display = 'none';
+        });
+        
+        loginBtn.addEventListener('click', () => showAuthModal('login'));
+        signupBtn.addEventListener('click', () => showAuthModal('signup'));
+        
+        loginTab.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.style.display = 'flex';
+            signupForm.style.display = 'none';
+        });
+        
+        signupTab.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.style.display = 'flex';
+            loginForm.style.display = 'none';
+        });
+        
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginTab.click();
+        });
+        
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupTab.click();
+        });
+        
+        loadMoreBtn.addEventListener('click', () => {
+            displayedProperties += 12;
+            if (displayedProperties >= properties.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+            renderProperties(displayedProperties);
+        });
+        
+        // Form submissions
+        document.getElementById('propertySearch').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real app, you would filter properties based on search criteria
+            alert('Search functionality would filter properties here');
+        });
+        
+        agentContactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const propertyId = document.getElementById('contactPropertyId').value;
+            const propertyTitle = document.getElementById('contactPropertyTitle').value;
+            
+            // In a real app, this would send to your backend
+            console.log('Contact form submitted:', {
+                name,
+                email,
+                propertyId,
+                propertyTitle,
+                message: document.getElementById('contactMessage').value,
+                bestTime: document.getElementById('contactBestTime').value,
+                phone: document.getElementById('contactPhone').value
+            });
+            
+            alert(`Thank you, ${name}! Your message has been sent to the agent for ${propertyTitle}. They will contact you at ${email} shortly.`);
+            contactModal.style.display = 'none';
+        });
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // In a real app, this would validate with your backend
+            if (email && password) {
+                // Simulate successful login
+                currentUser = {
+                    id: 1,
+                    name: 'John Doe',
+                    email: email,
+                    premium: false
+                };
+                
+                updateAuthUI();
+                authModal.style.display = 'none';
+                alert('Welcome back! You are now signed in.');
+            } else {
+                alert('Please enter both email and password');
+            }
+        });
+        
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+            const premium = document.getElementById('signupPremium').checked;
+            
+            // Basic validation
+            if (!name || !email || !password || !confirm) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirm) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // In a real app, this would create a user in your backend
+            currentUser = {
+                id: 2,
+                name: name,
+                email: email,
+                premium: premium
+            };
+            
+            updateAuthUI();
+            authModal.style.display = 'none';
+            alert(`Welcome to DreamHome Realty, ${name}! Your account has been created.${premium ? ' Thank you for choosing Premium!' : ''}`);
+        });
+        
+        // Initialize
+        renderProperties(displayedProperties);
+        renderRecommendations();
+        updateAuthUI();
+        
+        // Make functions available globally
+        window.showPropertyDetails = showPropertyDetails;
+        window.toggleFavorite = toggleFavorite;
+        window.showVrTour = showVrTour;
+    </script>
+</body>
+</html>
